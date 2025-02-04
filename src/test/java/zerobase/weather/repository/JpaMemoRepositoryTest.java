@@ -1,6 +1,5 @@
 package zerobase.weather.repository;
 
-
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -21,12 +20,11 @@ public class JpaMemoRepositoryTest {
     @Autowired
     JpaMemoRepository jpaMemoRepository;
 
-    // Memo의 @GeneratedValue(strategy = GenerationType.IDENTITY)때문에 강사와 코드가 다름
+    // Memo의 @GeneratedValue(strategy = GenerationType.IDENTITY)를 주석처리하면 오류 안남
     @Test
     void insertMemoTest() {
         // given
-        Memo newMemo = new Memo();
-        newMemo.setText("this is jpa memo");
+        Memo newMemo = new Memo(10,"this is jpa memo");
         // when
         jpaMemoRepository.save(newMemo);
         // then
@@ -37,16 +35,16 @@ public class JpaMemoRepositoryTest {
     @Test
     void findByIdTest() {
         // given
-        Memo newMemo = new Memo();
-        newMemo.setText("jpa");
-
+        Memo newMemo = new Memo(11,"jpa");
         // when
         Memo memo = jpaMemoRepository.save(newMemo);
         System.out.println(memo.getId());
-
         // then
         Optional<Memo> result = jpaMemoRepository.findById(memo.getId());
-        assertEquals(result.get().getText(), "jpa");
+        assertEquals(result.get().getText(),"jpa");
     }
+
+
+
 
 }
