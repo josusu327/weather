@@ -15,7 +15,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 @SpringBootTest
 @Transactional
-class JdbcMemoRepositoryTest {
+public class JdbcMemoRepositoryTest {
 
     @Autowired
     JdbcMemoRepository jdbcMemoRepository;
@@ -30,7 +30,7 @@ class JdbcMemoRepositoryTest {
 
         // then
         Optional<Memo> result = jdbcMemoRepository.findById(2);
-        assertEquals(result.get().getText(), "insert Memo Test");
+        assertEquals("insert Memo Test", result.get().getText());
     }
 
     @Test
