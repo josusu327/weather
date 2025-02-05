@@ -3,6 +3,7 @@ package zerobase.weather.controller;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.*;
 import zerobase.weather.domain.Diary;
+import zerobase.weather.error.InvalidDate;
 import zerobase.weather.service.DiaryService;
 
 import java.time.LocalDate;
@@ -24,6 +25,9 @@ public class DiaryController {
 
     @GetMapping("/read/diary")
     List<Diary> readDiary(@RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date) {
+//        if (date.isAfter(LocalDate.ofYearDay(2023,1))){
+//            throw new InvalidDate();
+//        }
         return diaryService.readDiary(date);
     }
 
