@@ -13,7 +13,6 @@ import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Transactional;
 import zerobase.weather.domain.DateWeather;
 import zerobase.weather.domain.Diary;
-import zerobase.weather.error.InvalidDate;
 import zerobase.weather.repository.DateWeatherRepository;
 import zerobase.weather.repository.DiaryRepository;
 
@@ -82,7 +81,7 @@ public class DiaryService {
     private DateWeather getDateWeather(LocalDate date) {
         List<DateWeather> dateWeatherListFromDB = dateWeatherRepository.findAllByDate(date);
         if (dateWeatherListFromDB.isEmpty()) {
-            // 새로 api에서 날씨정보를 가져와야함
+            // 새로 api 에서 날씨정보를 가져와야함
             // 정책상... 현재 날씨를 가져오도록 하거나, 날씨 없이 일기를 쓰도록...
             return getWeatherFromApi();
         } else {
@@ -92,9 +91,6 @@ public class DiaryService {
 
     @Transactional(readOnly = true)
     public List<Diary> readDiary(LocalDate date) {
-//        if (date.isAfter(LocalDate.ofYearDay(3050,1))){
-//            throw new InvalidDate();
-//        }
         return diaryRepository.findAllByDate(date);
     }
 
